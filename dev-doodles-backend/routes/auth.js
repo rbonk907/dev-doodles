@@ -9,16 +9,16 @@ const db = require('../db');
  * hashed password provided matches the hashed password store in the DB.
  */
 passport.use(new LocalStrategy(function verify(username, password, callback) {
-    db.query('SELECT * FROM users WHERE username = ?', [ username ], function(err, row) {
+    db.query('SELECT * FROM users WHERE username = $1', [ username ], function(err, pgRes) {
         if (err) { return callback(err); }
-        if (!row) { return callback(null, false, { message: 'Incorrect username or password.' }); }
+        if (!pgRes.rows[0]) { return callback(null, false, { message: 'Incorrect username or password.' }); }
 
-        crypto.pbkdf2(password, row.salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+        crypto.pbkdf2(password, pgRes.rows[0].salt, 310000, 32, 'sha256', function(err, hashedPassword) {
             if (err) { return callback(err); }
-            if (!crypto.timingSafeEqual(row.hashed_password, hashedPassword)) {
+            if (!crypto.timingSafeEqual(pgRes.rows[0].hashed_password, hashedPassword)) {
                 return callback(null, false, { message: 'Incorrect username or password.' });
             }
-            return callback(null, row);
+            return callback(null, pgRes.rows[0]);
         });
     });
 }));
