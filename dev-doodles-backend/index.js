@@ -1,6 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+const db = require('./db');
+
+// routes
+const authRouter = require('./routes/auth');
+
 const app = express();
 const port = 3000;
 
@@ -14,6 +23,18 @@ app.use(
         extended: true,
     })
 );
+
+app.use(session({
+    store: new pgSession({
+        pool: db.pool,
+        tableName: 'user_sessions'
+    }),
+    secret: process.env.COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+}));
+app.use(passport.authenticate('session'));
 
 app.get('/', function(request, response, next) {
     // response.json({ info: 'Dev Doodles API' });

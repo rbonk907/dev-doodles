@@ -22,3 +22,19 @@ passport.use(new LocalStrategy(function verify(username, password, callback) {
         });
     });
 }));
+
+passport.serializeUser(function(user, callback) {
+    process.nextTick(function() {
+        callback(null, { id: user.id, username: user.username });
+    });
+});
+
+passport.deserializeUser(function(user, callback) {
+    process.nextTick(function() {
+        return callback(null, user);
+    });
+});
+
+const router = express.Router();
+
+module.exports = router;
