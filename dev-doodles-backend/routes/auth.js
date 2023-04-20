@@ -60,4 +60,30 @@ router.get('/signup', function(req, res, next) {
     res.render('signup');
 });
 
+router.post('/signup', function(req, res, next) {
+    const salt = crypto.randomBytes(16);
+    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {
+        if (err) { return next(err); }
+        db.query(
+            'INSERT INTO users(username, hashed_password, salt, name) VALUES($1, $2, $3, $4) RETURNING id', 
+            [
+                req.body.username,
+                hashedPassword,
+                salt,
+                req.body.name ? req.body.name : req.body.username
+            ], function(err, pgRes) {
+                if (err) { return next(err); }
+                const user = {
+                    id: pgRes.rows[0].id,
+                    username: req.body.username
+                };
+                req.login(user, function(err) {
+                    if (err) { return next(err); }
+                    res.redirect('/');
+                });
+            }
+        );
+    });
+});
+
 module.exports = router;
