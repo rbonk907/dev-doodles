@@ -37,4 +37,27 @@ passport.deserializeUser(function(user, callback) {
 
 const router = express.Router();
 
+// render temporary login page for testing username password authentication
+router.get('/login', function(req, res, next) {
+    res.render('login');
+});
+
+router.post('/login/password', passport.authenticate('local', {
+    successReturnToOrRedirect: '/',
+    failureRedirect: '/login',
+    failureMessage: true
+}));
+
+router.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
+});
+
+// render temporary signup form
+router.get('/signup', function(req, res, next) {
+    res.render('signup');
+});
+
 module.exports = router;

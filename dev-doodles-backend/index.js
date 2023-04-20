@@ -36,6 +36,8 @@ app.use(session({
 }));
 app.use(passport.authenticate('session'));
 
+app.use('/', authRouter);
+
 app.get('/', function(request, response, next) {
     // response.json({ info: 'Dev Doodles API' });
     if (!request.user) { return response.render('home'); }
