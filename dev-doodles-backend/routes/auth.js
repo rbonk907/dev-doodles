@@ -1,6 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const GoogleStrategy = require('passport-google-oauth20');
 const crypto = require('crypto');
 const db = require('../db');
 
@@ -23,12 +25,57 @@ passport.use(new LocalStrategy(function verify(username, password, callback) {
     });
 }));
 /**
+ * New strategy for handling user login with google, using OAuth 2.0
+ */
+passport.use(new GoogleStrategy({
+    clientID: process.env['GOOGLE_CLIENT_ID'],
+    clientSecret: process.env['GOOGLE_CLIENT_SECRET'],
+    callbackURL: '/oauth2/redirect/google',
+    scope: [ 'profile' ],
+    state: true
+},
+function(accessToken, refreshToken, profile, callback) {
+    db.query('SELECT * FROM federated_credentials WHERE provider = $1 AND subject = $2', [
+        'https://accounts.google.com',
+        profile.id
+    ], function(err, pgRes) {
+        if (err) { return callback(err); }
+        if (!pgRes.rows[0]) {
+            db.query('INSERT INTO users (name) VALUES ($1) RETURNING id', [
+                profile.displayName
+            ], function(err, result) {
+                if (err) { return callback(err); }
+                const id = result.rows[0].id
+                db.query(
+                    'INSERT INTO federated_credentials (user_id, provider, subject) VALUES ($1, $2, $3)', [
+                        id,
+                        'https://accounts.google.com',
+                        profile.id
+                    ], function(err) {
+                        if (err) { return callback(err); }
+                        const user = {
+                            id: id,
+                            name: profile.displayName
+                        };
+                        return callback(null, user);
+                    });
+            });
+        } else {
+            db.query('SELECT * FROM users WHERE id = $1', [ pgRes.rows[0].user_id ], function(err, result) {
+                if (err) { return callback(err); }
+                if (!result.rows) { return callback(null, false); }
+                return callback(null, result.rows[0])
+            })
+        }
+    })
+}))
+/**
  * Upon successful call to either `req.login()` or `passport.authenticate()`
  * the user information is stored within the session for persistent login
  */
 passport.serializeUser(function(user, callback) {
     process.nextTick(function() {
-        callback(null, { id: user.id, username: user.username });
+        callback(null, { id: user.id, username: user.username, name: user.name });
     });
 });
 
@@ -55,6 +102,13 @@ router.post('/login/password', passport.authenticate('local', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/login',
     failureMessage: true
+}));
+
+router.get('/login/federated/google', passport.authenticate('google'));
+
+router.get('/oauth2/redirect/google', passport.authenticate('google', {
+    successReturnToOrRedirect: '/',
+    failureRedirect: '/login'
 }));
 
 router.post('/logout', function(req, res, next) {
