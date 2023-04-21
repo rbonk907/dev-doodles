@@ -22,13 +22,17 @@ passport.use(new LocalStrategy(function verify(username, password, callback) {
         });
     });
 }));
-
+/**
+ * Upon successful call to either `req.login()` or `passport.authenticate()`
+ * the user information is stored within the session for persistent login
+ */
 passport.serializeUser(function(user, callback) {
     process.nextTick(function() {
         callback(null, { id: user.id, username: user.username });
     });
 });
 
+// Retrieves the user object from the session if present
 passport.deserializeUser(function(user, callback) {
     process.nextTick(function() {
         return callback(null, user);
@@ -42,6 +46,11 @@ router.get('/login', function(req, res, next) {
     res.render('login');
 });
 
+/**
+ * Calls the LocalStrategy defined above that verifies whether the login information
+ * exists in the DB. If the strategy succeeds, the user is added to the req object 
+ * along with the helper functions req.login(), req.logout(), and req.isAuthenticated()
+ */
 router.post('/login/password', passport.authenticate('local', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/login',
@@ -59,7 +68,11 @@ router.post('/logout', function(req, res, next) {
 router.get('/signup', function(req, res, next) {
     res.render('signup');
 });
-
+/**
+ * Inserts user information into the database, then creates a user object and
+ * calls `req.login()` with the new user. If successful, the user is serialized
+ * into the session and is redirected to the homepage.
+ */
 router.post('/signup', function(req, res, next) {
     const salt = crypto.randomBytes(16);
     crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {

@@ -34,12 +34,18 @@ app.use(session({
     saveUninitialized: false,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
+/** 
+ * Upon any server request, passport checks if a user is stored in the
+ * in the session object. This calls the `deserializeUser` function 
+ * which will return a user object if present. If so, a login session
+ * is re-established by populating `req.user` with the current user 
+ * information
+ */
 app.use(passport.authenticate('session'));
 
 app.use('/', authRouter);
 
 app.get('/', function(request, response, next) {
-    // response.json({ info: 'Dev Doodles API' });
     if (!request.user) { return response.render('home'); }
     next();
 }, function(request, response) {
