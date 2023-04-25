@@ -4,9 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Dev Doodles API</title>
-		<link rel="stylesheet" href="/css/base.css">
+		<!-- <link rel="stylesheet" href="/css/base.css">
 		<link rel="stylesheet" href="/css/index.css">
-		<link rel="stylesheet" href="/css/app.css">
+		<link rel="stylesheet" href="/css/app.css"> -->
+		
 	</head>
 	<body>
 		<section class="dashboard">
@@ -23,10 +24,22 @@
 			<header class="header">
 				<h1>Dev Doodles API</h1>
 			</header>
+			<form action="/shop/cart" method="post">
+				<button class="cart" type="submit">Create Cart</button>
+			</form>
+			<button id='deleteCart'>Delete Cart</button>
 		</section>
 		<footer class="info">
 			<p>Created by <a href="https://www.ryanbonk.dev">Ryan Bonk</a></p>
 			<p>Authentication powered by <a href="https://www.passportjs.org">Passport</a></p>
 		</footer>
+		<script>
+			let btn = document.getElementById('deleteCart');
+			btn.addEventListener('click', async () => {
+				const response = await fetch('/shop/cart', {
+					method: 'DELETE',
+				});
+			});
+		</script>
 	</body>
 </html>
