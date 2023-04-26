@@ -108,9 +108,61 @@ shop.put('/cart', (request, response) => {
 });
 
 // ================ Order Routes =====================================
+shop.get('/orders', (request, response) => {
+    db.query('SELECT * FROM orders ORDER BY order_id ASC', (error, results) => {
+        if (error) { throw error; }
 
+        response.status(200).json(results.rows);
+    })
+});
 
+shop.post('/orders', (request, response) => {
+    const { cart, addressId } = request.body;
 
+    db.query('INSERT INTO orders (status, address_id) VALUES ($1, $2) RETURNING order_id', [
+        'pending',
+        addressId
+    ], (error, results) => {
+        if (error) { throw error; }
+        const orderId = results.rows[0].order_id;
+        cart.items.forEach((item) => {
+            db.query('INSERT INTO orders_stickers (sticker_id, qty, order_id) VALUES ($1, $2, $3)', [
+                item.sticker_id,
+                item.qty,
+                orderId
+            ], (error, results) => {
+                if (error) { throw error; }
+                return response.status(201).send(`Order submitted with order ID: ${orderId}`);
+            });
+        });
+    });
+});
+
+shop.get('/orders/:orderId', (request, response) => {
+    const orderId = parseInt(request.params.orderId);
+    const queryString = 'SELECT o.qty, s.id, s.title, s.price ' +
+                        'FROM orders INNER JOIN orders_stickers AS o ' +
+                        'ON orders.order_id = o.order_id ' +
+                        'INNER JOIN stickers AS s ' +
+                        'ON o.sticker_id = s.id ' +
+                        'WHERE orders.order_id = $1';
+    
+    db.query(queryString, [ orderId ], (error, results) => {
+        if (error) { throw error; }
+        response.status(200).json(results.rows);
+    });
+});
+
+shop.delete('/orders/:orderId', (request, response) => {
+    const orderId = parseInt(request.params.orderId);
+    db.query('DELETE from orders_stickers WHERE order_id = $1', [ orderId ], (error, results) => {
+        if (error) { throw error; }
+        db.query('DELETE from orders WHERE order_id = $1', [ orderId ], (error, results) => {
+            if (error) { throw error; }
+            response.status(200).send('Order deleted');
+        });
+    });
+});
 
 
 module.exports = shop;
