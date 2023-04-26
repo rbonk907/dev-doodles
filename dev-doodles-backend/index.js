@@ -11,6 +11,7 @@ const db = require('./db');
 const authRouter = require('./routes/auth');
 const stickerRouter = require('./routes/stickers');
 const shopRouter = require('./routes/shop');
+const userRouter = require('./routes/user');
 
 const app = express();
 const port = 3000;
@@ -48,6 +49,7 @@ app.use(passport.authenticate('session'));
 app.use('/', authRouter);
 app.use('/stickers', stickerRouter);
 app.use('/shop', shopRouter);
+app.use('/user', userRouter);
 
 app.get('/', function(request, response, next) {
     if (!request.user) { return response.render('home'); }
