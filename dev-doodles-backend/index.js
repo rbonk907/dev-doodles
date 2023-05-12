@@ -14,7 +14,7 @@ const shopRouter = require('./routes/shop');
 const userRouter = require('./routes/user');
 
 const app = express();
-const port = 3000;
+const port = 3001; // leave 3000 open for the frontend
 
 // temporary view engine for testing user login flow
 app.set('views', path.join(__dirname, 'views'));
