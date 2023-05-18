@@ -1,23 +1,29 @@
 import Link from "next/link";
 import Image from "next/image";
-import { BsCart2 } from "react-icons/bs";
+import { BsCart2, BsList } from "react-icons/bs";
 import Searchbar from "./Searchbar";
+import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
     return (
-        <div className="flex items-center justify-between w-full p-2">
-            <div>
+        <div className="flex items-center justify-between w-full py-2">
+            <div className="flex items-center md:order-2">
+                <MobileMenu />
+                <Searchbar />
+            </div>
+            
+            <div className="pr-3 md:pr-0 md:shrink-0 md:order-1">
                 <Image
                     src="/dev-doodles-high-resolution-logo.svg"
                     width={300}
                     height={300}
                     alt="Dev Doodle logo" />
             </div>
-            <Searchbar />
-            <div className="flex items-center">
-                <Link className="p-2 font-bold text-lg" href="/login">Login</Link>
-                <Link className="p-2 font-bold text-lg" href="/signup">Signup</Link>
-                <Link href="/cart">
+            
+            <div className="flex items-center md:order-3">
+                <Link className="hidden md:inline-block py-1 px-4 mx-2 font-bold text-lg hover:bg-gray-400 rounded-full" href="/login">Login</Link>
+                <Link className="hidden md:inline-block py-1 px-4 mr-2 font-bold text-lg hover:bg-gray-400 rounded-full" href="/signup">Signup</Link>
+                <Link className="rounded-full p-2 hover:bg-gray-400" href="/cart">
                     <BsCart2 size="2rem" />
                 </Link>
             </div>
