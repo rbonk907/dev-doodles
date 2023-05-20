@@ -6,3 +6,15 @@ export async function fetchStickers() {
     console.log(stickers);
     return stickers;
 }
+
+export async function fetchUser() {
+    const response = await fetch(`${API_ENDPOINT}/user`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    const user = await response.json();
+    return user;
+}

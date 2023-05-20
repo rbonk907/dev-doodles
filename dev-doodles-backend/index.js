@@ -36,9 +36,10 @@ app.use(session({
         tableName: 'user_sessions'
     }),
     secret: process.env.COOKIE_SECRET,
+    name: 'devlDoodle',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false } // 30 days
 }));
 /** 
  * Upon any server request, passport checks if a user is stored in the
