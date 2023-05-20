@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
@@ -19,6 +20,8 @@ const port = 3001; // leave 3000 open for the frontend
 // temporary view engine for testing user login flow
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 app.use(bodyParser.json());
 app.use(
