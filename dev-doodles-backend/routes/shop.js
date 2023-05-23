@@ -40,7 +40,7 @@ shop.post('/cart', (request, response) => {
 shop.get('/cart', (request, response) => {
     if (!request.session.cart) {
         console.log(request.session);
-        return response.status(200).send('Cart is empty...');
+        return response.status(204); // empty cart so return no content status
     }
     const queryString = 'SELECT cart.qty, stickers.id AS sticker_id, stickers.title, stickers.price ' +
                         'FROM cart_stickers AS cart INNER JOIN stickers ' +

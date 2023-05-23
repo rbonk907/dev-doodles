@@ -1,29 +1,49 @@
 "use client";
 
-import { fetchUser } from "@/api";
+import { fetchUser, logout } from "@/api";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect, useState } from "react";
 import { BsList } from "react-icons/bs";
 
 import Modal from "react-modal";
+import { LoginContext } from "./LoginProvider";
 Modal.setAppElement("#root");
 
-export default function MobileMenu({ hasCookie }) {
+export default function MobileMenu() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [username, setUsername] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
+    const { isAuth, setAuth } = useContext(LoginContext);
+    
     function toggleMenu() {
         setMenuOpen(!menuOpen);
+    }
+
+    async function handleLogout() {
+        const response = await logout();
+        console.log(response);
+        if (response.ok) {
+            setAuth(false);
+            // setIsLoggedIn(false);
+        }
     }
 
     useEffect(() => {
         async function fetchUserData() {
             const user = await fetchUser();
-            setUsername(user.name);
+            if (user) {
+                setUsername(user.name);
+                // setIsLoggedIn(true);
+            } 
         }
-        if (hasCookie) {
+        if (isAuth) {
             fetchUserData();
+        } else {
+            setUsername('');
         }
-    }, []);
+    }, [isAuth]);
     
     return (
         <div className="relative">
@@ -40,6 +60,7 @@ export default function MobileMenu({ hasCookie }) {
                     <div>
                         <span className="block">Welcome back,</span>
                         <span className="font-bold">{username}! 👋</span>
+                        <button className="block" onClick={handleLogout}>Log out</button>
                     </div>
                 ) : (
                     <div>

@@ -1,3 +1,4 @@
+import LoginProvider from './LoginProvider'
 import './globals.css'
 import { Inter } from 'next/font/google'
 
@@ -11,7 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body id="root" className={inter.className}>{children}</body>
+      <body id="root" className={inter.className}>
+        {children}
+      </body>
     </html>
   )
 }

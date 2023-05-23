@@ -6,6 +6,8 @@ const GoogleStrategy = require('passport-google-oauth20');
 const crypto = require('crypto');
 const db = require('../db');
 
+const CLIENT_URL = "http://localhost:3000";
+
 /* create new strategy for handling username and password authentication.
  * Query the database for a provided username and if it exists, determine if the
  * hashed password provided matches the hashed password store in the DB.
@@ -107,14 +109,22 @@ router.post('/login/password', passport.authenticate('local', {
 router.get('/login/federated/google', passport.authenticate('google'));
 
 router.get('/oauth2/redirect/google', passport.authenticate('google', {
-    successReturnToOrRedirect: '/',
-    failureRedirect: '/login'
-}));
+    /*successReturnToOrRedirect: CLIENT_URL,*/
+    failureRedirect: `${CLIENT_URL}/login`
+}), setAuthCookie);
+
+function setAuthCookie(req, res) {
+    res.cookie('isAuth', true).redirect(CLIENT_URL);
+}
 
 router.post('/logout', function(req, res, next) {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/');
+
+        req.session.destroy(function(err) {
+            if (err) { return next(err); }
+            res.clearCookie('devDoodle').redirect('/');
+        });
     });
 });
 

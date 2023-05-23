@@ -16,7 +16,7 @@ export default function StickerList() {
     }, []);
 
     return (
-        <>
+        <div className="flex flex-wrap justify-center gap-6 mt-6">
             {stickers.map((sticker) => {
                 return (
                     <Sticker
@@ -28,6 +28,6 @@ export default function StickerList() {
                     />
                 );
             })}
-        </>
+        </div>
     );
 }

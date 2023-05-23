@@ -5,8 +5,8 @@ const user = express.Router();
 
 user.get('/', (request, response) => {
     // console.log(request);
-    if (request.user) {
-        return response.status(200).json(request.user);
+    if (!request.user) {
+        return response.status(401).send();
     }
     
     // db.query('SELECT * FROM users', (error, results) => {
@@ -14,6 +14,7 @@ user.get('/', (request, response) => {
 
     //     response.status(200).json(results.rows);
     // });
+    return response.status(200).json(request.user);
 });
 
 user.get('/:username', (request, response) => {
