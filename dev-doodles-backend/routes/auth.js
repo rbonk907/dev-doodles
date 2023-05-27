@@ -103,7 +103,8 @@ router.get('/login', function(req, res, next) {
 router.post('/login/password', passport.authenticate('local', {
     successReturnToOrRedirect: '/',
     failureRedirect: '/login',
-    failureMessage: true
+    failureMessage: true,
+    keepSessionInfo: true,
 }));
 
 router.get('/login/federated/google', passport.authenticate('google'));
@@ -118,12 +119,26 @@ function setAuthCookie(req, res) {
 }
 
 router.post('/logout', function(req, res, next) {
+    const cartId = req.session.cart.id;
     req.logout(function(err) {
         if (err) { return next(err); }
 
+        
+
         req.session.destroy(function(err) {
             if (err) { return next(err); }
-            res.clearCookie('devDoodle').redirect('/');
+
+            db.query('DELETE from cart_stickers WHERE cart_id = $1', [
+                cartId,
+            ], (error, results) => {
+                if (error) { throw error; }
+                db.query('DELETE from cart_session WHERE cart_id = $1', [
+                    cartId,
+                ], (error, results) => {
+                    // return res.clearCookie('devDoodle').redirect('/');
+                    return res.redirect('/');
+                });
+            });
         });
     });
 });

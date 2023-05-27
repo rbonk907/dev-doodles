@@ -7,35 +7,36 @@ import UserIcon from "./UserIcon";
 import { cookies } from "next/headers";
 import { fetchUser } from "@/api";
 import LoginProvider from "./LoginProvider";
+import CartIcon from "./CartIcon";
+import CartProvider from "./CartProvider";
 
-export default function Navbar() {
+export default function Navbar({ cartPage }) {
     // const hasCookie = cookies().has('devDoodle');
     
     return (
         <div className="flex items-center justify-between w-full py-2 px-2 md:px-4">
-            <div className="flex items-center md:order-2">
+            <div className="flex items-center md:order-2 md:w-full md:max-w-2xl">
                 
                 <MobileMenu />
                 
-                <Searchbar />
+                { cartPage ? '' : <Searchbar />}
             </div>
             
             <div className="pr-3 md:pr-0 md:shrink-0 md:order-1">
-                <Image
-                    src="/dev-doodles-high-resolution-logo.svg"
-                    width={300}
-                    height={300}
-                    alt="Dev Doodle logo" />
+                <Link href="/">
+                    <Image
+                        src="/dev-doodles-high-resolution-logo.svg"
+                        width={300}
+                        height={300}
+                        alt="Dev Doodle logo" />
+                </Link>
             </div>
             
             <div className="flex items-center md:order-3">
-                
-                <UserIcon />
-                
-                
-                <Link className="rounded-full p-2 hover:bg-gray-400" href="/cart">
-                    <BsCart2 className="w-8 h-8" />
-                </Link>
+                <div className="mr-4">
+                    <UserIcon />
+                </div>
+                <CartIcon />
             </div>
         </div>
     );

@@ -7,10 +7,13 @@ export default function Home() {
   return (
     <div>
       <LoginProvider>
-        <Navbar />
+            <Navbar cartPage={false} />
       </LoginProvider>
-      <main className="flex min-h-screen flex-col items-center md:p-24 md:pt-0">
-        <StickerList />
+      <main className="flex min-h-screen flex-col items-center md:p-16 md:pt-0">
+        <div className="md:mt-28">
+          <StickerList />
+        </div>
+        
       </main>
     </div>
   )

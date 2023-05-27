@@ -5,17 +5,20 @@ import { useContext, useEffect, useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import Link from "next/link";
 import { LoginContext } from "./LoginProvider";
+import { CartContext } from "./CartProvider";
 
 export default function UserIcon() {
     const [username, setUsername] = useState('');
     const { isAuth, setAuth } = useContext(LoginContext);
+    const { setCartQty, setCartSession } = useContext(CartContext);
 
     async function handleLogout() {
         const response = await logout();
         console.log(response);
         if (response.ok) {
             setAuth(false);
-            // setIsLoggedIn(false);
+            setCartQty(0);
+            setCartSession(false);
         }
     }
     
@@ -39,9 +42,9 @@ export default function UserIcon() {
         <>
         { 
             username ? 
-                <div className="hidden md:inline-block">
+                <div className="hidden md:flex bg-white rounded-full py-2 px-2">
+                    <button className="font-bold text-lg pr-4 pl-2" onClick={handleLogout}>Logout</button>
                     <BsPersonCircle className="w-7 h-7"/>
-                    <button className="font-bold text-lg" onClick={handleLogout}>Logout</button>
                 </div>
             : 
                 <>

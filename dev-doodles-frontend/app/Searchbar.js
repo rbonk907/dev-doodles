@@ -12,16 +12,16 @@ export default function Searchbar() {
     }
     
     return (
-            <div className="md:grow">
+            <div className="md:grow md:w-full max-w-2xl">
                 
-                <form onSubmit={onSubmit} className="hidden md:inline-block pl-6 w-full max-w-xl">
+                <form onSubmit={onSubmit} className="hidden md:inline-block pl-6 w-full">
                     <div className="flex bg-white rounded-lg border-2 border-cyan-500 pl-4 py-3 pr-2 ">
                         <input 
                             type="search" 
                             id="search" 
                             name="search" 
                             placeholder="Search stickers..."
-                            className="text-lg w-full"></input>
+                            className="text-lg w-full focus:outline-none"></input>
                         <button type="submit" className="p-2 ml-2 bg-white rounded-full hover:bg-gray-300"><BsSearchHeart size="1.5rem"/></button>
                     </div>
                 </form>

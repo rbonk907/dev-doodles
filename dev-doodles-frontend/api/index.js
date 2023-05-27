@@ -35,3 +35,81 @@ export async function logout() {
     });
     return response;
 }
+
+export async function getCart() {
+    const response = await fetch(`${API_ENDPOINT}/shop/cart`, {
+        method: "GET",
+        credentials: "include",
+    });
+    const cart = await response.json();
+    return cart;
+}
+
+export async function createCart(total, qty, id) {
+    console.log(`qty: ${typeof qty}`);
+    console.log(`price: ${typeof total}`);
+    
+    const response = await fetch(`${API_ENDPOINT}/shop/cart`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            total: total,
+            qty: qty,
+            stickerId: id
+        }),
+    });
+    return response;
+}
+
+export async function addItemToCart(price, qty, id) {
+    console.log(`qty: ${qty}`);
+    console.log(`price: ${typeof price}`);
+    
+    const response = await fetch(`${API_ENDPOINT}/shop/cart/item`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            price: price,
+            qty: qty,
+            stickerId: id
+        }),
+    });
+    return response;
+}
+
+export async function editCartItem(price, qty, id) {
+    const response = await fetch(`${API_ENDPOINT}/shop/cart`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            price: price,
+            qty: qty,
+            stickerId: id
+        }),
+    });
+    return response;
+}
+
+export async function deleteCartItem(price, id) {
+    const response = await fetch(`${API_ENDPOINT}/shop/cart/item`, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            price: price,
+            stickerId: id,
+        })
+    });
+    return response;
+}

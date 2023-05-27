@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useContext, useEffect, useState } from "react";
 import { BsList } from "react-icons/bs";
-
-import Modal from "react-modal";
 import { LoginContext } from "./LoginProvider";
+import Modal from "react-modal";
+
 Modal.setAppElement("#root");
 
 export default function MobileMenu() {
@@ -53,7 +53,7 @@ export default function MobileMenu() {
             <Modal
                 isOpen={menuOpen}
                 onRequestClose={toggleMenu}
-                className="fixed top-0 left-0 bottom-0 w-3/4 bg-white focus:outline-none"
+                className="fixed top-0 left-0 bottom-0 w-3/4 bg-white z-[100] focus:outline-none"
                 overlayClassName="fixed top-0 left-0 right-0 bottom-0 bg-slate-400/75"
             >
                 { username ? (
