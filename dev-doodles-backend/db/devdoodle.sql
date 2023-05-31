@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.2
--- Dumped by pg_dump version 15.2
+-- Dumped from database version 14.8 (Ubuntu 14.8-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.8 (Ubuntu 14.8-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -326,14 +326,6 @@ COPY public.address (address_id, street, city, state, country, zip_code) FROM st
 --
 
 COPY public.cart_session (total, cart_id) FROM stdin;
-0	gJMX6Q4NxfnyLCAqXZzBZQ
-0	gVpGoqKGGWLaT6amDtjHm6
-0	18jdkC9sodQ2zAhZR8FKhc
-0	si7nxrN2hyQSCWCfN3CpaU
-0	gEAquT54AwV4chY6JezUdm
-0	ndhNSgCGxMAa6wGSsTURbi
-0	v3kGaxXR1jL7e8nMdQSNfj
-0	97JwZK72QbjXre73trZ7Fw
 \.
 
 
@@ -342,9 +334,6 @@ COPY public.cart_session (total, cart_id) FROM stdin;
 --
 
 COPY public.cart_stickers (qty, sticker_id, cart_id) FROM stdin;
-5	1	gJMX6Q4NxfnyLCAqXZzBZQ
-3	2	gJMX6Q4NxfnyLCAqXZzBZQ
-6	3	gJMX6Q4NxfnyLCAqXZzBZQ
 \.
 
 
@@ -354,6 +343,7 @@ COPY public.cart_stickers (qty, sticker_id, cart_id) FROM stdin;
 
 COPY public.federated_credentials (user_id, provider, subject) FROM stdin;
 3	https://accounts.google.com	115954529227902016294
+4	https://accounts.google.com	118224133397438143273
 \.
 
 
@@ -378,10 +368,16 @@ COPY public.orders_stickers (sticker_id, qty, order_id) FROM stdin;
 --
 
 COPY public.stickers (id, title, price, qty_in_stock) FROM stdin;
-1	Hufflepuff	9.99	50
-2	Gryffindor	9.99	100
-3	Slytherin	9.99	25
-4	Ravenclaw	9.99	50
+5	Purrfectly Scripted	1.90	75
+6	Ferris the Rustacean	1.63	40
+7	Gopher Golang	2.35	90
+8	Back to BASIC	1.50	0
+9	Stop the Prop Drilling	1.79	60
+10	SQL Objection	1.68	30
+11	CORS Light	1.90	3
+12	DRY Your Code	2.24	50
+13	Openly Sourced Produce	1.50	5
+14	Stay in Your Shell	1.46	10
 \.
 
 
@@ -398,9 +394,10 @@ COPY public.stickers_per_lists (decal_id, list_id) FROM stdin;
 --
 
 COPY public.user_sessions (sid, sess, expire) FROM stdin;
-K5Q9aq5ERXXThcjmkCoPiOQg_BlH94OJ	{"cookie":{"originalMaxAge":2592000000,"expires":"2023-05-20T23:25:38.842Z","httpOnly":true,"path":"/"},"passport":{"user":{"id":1,"username":"yoshi123"}}}	2023-05-20 15:25:39
-e_jt3u00e9KP6nZei-gDg5vI9wpS_yHh	{"cookie":{"originalMaxAge":2592000000,"expires":"2023-05-24T18:33:42.605Z","httpOnly":true,"path":"/"},"cart":{"id":"gJMX6Q4NxfnyLCAqXZzBZQ","total":0}}	2023-05-24 14:12:28
-EhREHaV5ic3hF9PFz_1Qo2z8WSNnAuFR	{"cookie":{"originalMaxAge":2592000000,"expires":"2023-05-25T20:55:35.015Z","httpOnly":true,"path":"/"}}	2023-05-25 12:55:36
+3onJA3N7rj43j0Hp2YYtKq5KCgyghHlO	{"cookie":{"originalMaxAge":2592000000,"expires":"2023-06-23T21:31:10.425Z","httpOnly":false,"path":"/"},"cart":{"id":"gYwTKCeDzZfQ9aVZyqbBfn"}}	2023-06-23 13:42:00
+_s32bbB3u55bTaW6FYzpMQ4Gxqxa_IUc	{"cookie":{"originalMaxAge":2592000000,"expires":"2023-06-23T21:50:40.669Z","httpOnly":false,"path":"/"},"cart":{"id":"pFJ5g22ssSQfpJhNBzeJUt"}}	2023-06-23 13:50:41
+I8pcOX9pYrN7KWwsZvRhWJ7RTO6xtNjT	{"cookie":{"originalMaxAge":2592000000,"expires":"2023-06-23T21:57:07.306Z","httpOnly":false,"path":"/"},"cart":{"id":"qvZ4dG5CCtijFN2GANy3J3"}}	2023-06-23 13:57:08
+k3yp3SXiKWLfwje000kUlYPC3ybKHFvP	{"cookie":{"originalMaxAge":2592000000,"expires":"2023-06-21T22:51:39.325Z","httpOnly":false,"path":"/"},"passport":{"user":{"id":1,"username":"yoshi123","name":"yoshi123"}}}	2023-06-21 14:51:40
 \.
 
 
@@ -420,6 +417,8 @@ COPY public.users (id, username, hashed_password, salt, name, address_id) FROM s
 1	yoshi123	\\xd07b54972b8e3fb2ddad838825d1698efb7e7c63eb997430c51c69ec51f9f22e	\\x229f526a5426455504eef189fbd43f89	yoshi123	\N
 2	peach001	\\xedcf89bd5a8531ca13060705a46eeabd49616301a5a7487f574fab0f059dddd6	\\x259b049093a07d88618cc3faeb082e28	peach001	\N
 3	\N	\N	\N	Ryan Bonk	\N
+4	\N	\N	\N	Chilly Dev	\N
+7	luigi@anonymous.com	\\xcacad9c4590c828e9b9cb1acda0fa1dc5170b9c7e215f710dc96e06174a119f5	\\xf41b96f3ba298c77f6b8a33ae77e28b8	luigi@anonymous.com	\N
 \.
 
 
@@ -434,7 +433,7 @@ SELECT pg_catalog.setval('public.address_address_id_seq', 1, false);
 -- Name: decal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.decal_id_seq', 4, true);
+SELECT pg_catalog.setval('public.decal_id_seq', 14, true);
 
 
 --
@@ -455,7 +454,7 @@ SELECT pg_catalog.setval('public.user_decal_list_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 3, true);
+SELECT pg_catalog.setval('public.users_id_seq', 7, true);
 
 
 --
