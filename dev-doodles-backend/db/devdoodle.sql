@@ -21,7 +21,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: address; Type: TABLE; Schema: public; Owner: postgres
+-- Name: address; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.address (
@@ -34,10 +34,8 @@ CREATE TABLE public.address (
 );
 
 
-ALTER TABLE public.address OWNER TO postgres;
-
 --
--- Name: address_address_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: address_address_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.address_address_id_seq
@@ -49,17 +47,15 @@ CREATE SEQUENCE public.address_address_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.address_address_id_seq OWNER TO postgres;
-
 --
--- Name: address_address_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: address_address_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.address_address_id_seq OWNED BY public.address.address_id;
 
 
 --
--- Name: cart_session; Type: TABLE; Schema: public; Owner: postgres
+-- Name: cart_session; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.cart_session (
@@ -68,10 +64,8 @@ CREATE TABLE public.cart_session (
 );
 
 
-ALTER TABLE public.cart_session OWNER TO postgres;
-
 --
--- Name: cart_stickers; Type: TABLE; Schema: public; Owner: postgres
+-- Name: cart_stickers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.cart_stickers (
@@ -81,10 +75,8 @@ CREATE TABLE public.cart_stickers (
 );
 
 
-ALTER TABLE public.cart_stickers OWNER TO postgres;
-
 --
--- Name: stickers; Type: TABLE; Schema: public; Owner: postgres
+-- Name: stickers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.stickers (
@@ -95,10 +87,8 @@ CREATE TABLE public.stickers (
 );
 
 
-ALTER TABLE public.stickers OWNER TO postgres;
-
 --
--- Name: decal_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: decal_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.decal_id_seq
@@ -110,17 +100,15 @@ CREATE SEQUENCE public.decal_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.decal_id_seq OWNER TO postgres;
-
 --
--- Name: decal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: decal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.decal_id_seq OWNED BY public.stickers.id;
 
 
 --
--- Name: federated_credentials; Type: TABLE; Schema: public; Owner: postgres
+-- Name: federated_credentials; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.federated_credentials (
@@ -130,10 +118,8 @@ CREATE TABLE public.federated_credentials (
 );
 
 
-ALTER TABLE public.federated_credentials OWNER TO postgres;
-
 --
--- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+-- Name: orders; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.orders (
@@ -143,10 +129,8 @@ CREATE TABLE public.orders (
 );
 
 
-ALTER TABLE public.orders OWNER TO postgres;
-
 --
--- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: orders_order_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.orders_order_id_seq
@@ -158,17 +142,15 @@ CREATE SEQUENCE public.orders_order_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.orders_order_id_seq OWNER TO postgres;
-
 --
--- Name: orders_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: orders_order_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.orders_order_id_seq OWNED BY public.orders.order_id;
 
 
 --
--- Name: orders_stickers; Type: TABLE; Schema: public; Owner: postgres
+-- Name: orders_stickers; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.orders_stickers (
@@ -178,10 +160,8 @@ CREATE TABLE public.orders_stickers (
 );
 
 
-ALTER TABLE public.orders_stickers OWNER TO postgres;
-
 --
--- Name: stickers_per_lists; Type: TABLE; Schema: public; Owner: postgres
+-- Name: stickers_per_lists; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.stickers_per_lists (
@@ -190,10 +170,8 @@ CREATE TABLE public.stickers_per_lists (
 );
 
 
-ALTER TABLE public.stickers_per_lists OWNER TO postgres;
-
 --
--- Name: user_sticker_list; Type: TABLE; Schema: public; Owner: postgres
+-- Name: user_sticker_list; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.user_sticker_list (
@@ -203,10 +181,8 @@ CREATE TABLE public.user_sticker_list (
 );
 
 
-ALTER TABLE public.user_sticker_list OWNER TO postgres;
-
 --
--- Name: user_decal_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: user_decal_list_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.user_decal_list_id_seq
@@ -218,17 +194,15 @@ CREATE SEQUENCE public.user_decal_list_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_decal_list_id_seq OWNER TO postgres;
-
 --
--- Name: user_decal_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: user_decal_list_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.user_decal_list_id_seq OWNED BY public.user_sticker_list.id;
 
 
 --
--- Name: user_sessions; Type: TABLE; Schema: public; Owner: postgres
+-- Name: user_sessions; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.user_sessions (
@@ -238,10 +212,8 @@ CREATE TABLE public.user_sessions (
 );
 
 
-ALTER TABLE public.user_sessions OWNER TO postgres;
-
 --
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.users (
@@ -254,10 +226,8 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO postgres;
-
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -269,52 +239,50 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO postgres;
-
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: address address_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: address address_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.address ALTER COLUMN address_id SET DEFAULT nextval('public.address_address_id_seq'::regclass);
 
 
 --
--- Name: orders order_id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: orders order_id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders ALTER COLUMN order_id SET DEFAULT nextval('public.orders_order_id_seq'::regclass);
 
 
 --
--- Name: stickers id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: stickers id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.stickers ALTER COLUMN id SET DEFAULT nextval('public.decal_id_seq'::regclass);
 
 
 --
--- Name: user_sticker_list id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: user_sticker_list id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_sticker_list ALTER COLUMN id SET DEFAULT nextval('public.user_decal_list_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: address; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.address (address_id, street, city, state, country, zip_code) FROM stdin;
@@ -322,7 +290,7 @@ COPY public.address (address_id, street, city, state, country, zip_code) FROM st
 
 
 --
--- Data for Name: cart_session; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: cart_session; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.cart_session (total, cart_id) FROM stdin;
@@ -330,7 +298,7 @@ COPY public.cart_session (total, cart_id) FROM stdin;
 
 
 --
--- Data for Name: cart_stickers; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: cart_stickers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.cart_stickers (qty, sticker_id, cart_id) FROM stdin;
@@ -338,7 +306,7 @@ COPY public.cart_stickers (qty, sticker_id, cart_id) FROM stdin;
 
 
 --
--- Data for Name: federated_credentials; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: federated_credentials; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.federated_credentials (user_id, provider, subject) FROM stdin;
@@ -348,7 +316,7 @@ COPY public.federated_credentials (user_id, provider, subject) FROM stdin;
 
 
 --
--- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.orders (order_id, status, address_id) FROM stdin;
@@ -356,7 +324,7 @@ COPY public.orders (order_id, status, address_id) FROM stdin;
 
 
 --
--- Data for Name: orders_stickers; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: orders_stickers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.orders_stickers (sticker_id, qty, order_id) FROM stdin;
@@ -364,7 +332,7 @@ COPY public.orders_stickers (sticker_id, qty, order_id) FROM stdin;
 
 
 --
--- Data for Name: stickers; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: stickers; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.stickers (id, title, price, qty_in_stock) FROM stdin;
@@ -382,7 +350,7 @@ COPY public.stickers (id, title, price, qty_in_stock) FROM stdin;
 
 
 --
--- Data for Name: stickers_per_lists; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: stickers_per_lists; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.stickers_per_lists (decal_id, list_id) FROM stdin;
@@ -390,7 +358,7 @@ COPY public.stickers_per_lists (decal_id, list_id) FROM stdin;
 
 
 --
--- Data for Name: user_sessions; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: user_sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.user_sessions (sid, sess, expire) FROM stdin;
@@ -402,7 +370,7 @@ k3yp3SXiKWLfwje000kUlYPC3ybKHFvP	{"cookie":{"originalMaxAge":2592000000,"expires
 
 
 --
--- Data for Name: user_sticker_list; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: user_sticker_list; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.user_sticker_list (id, name, user_id) FROM stdin;
@@ -410,7 +378,7 @@ COPY public.user_sticker_list (id, name, user_id) FROM stdin;
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.users (id, username, hashed_password, salt, name, address_id) FROM stdin;
@@ -423,42 +391,42 @@ COPY public.users (id, username, hashed_password, salt, name, address_id) FROM s
 
 
 --
--- Name: address_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: address_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.address_address_id_seq', 1, false);
 
 
 --
--- Name: decal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: decal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.decal_id_seq', 14, true);
 
 
 --
--- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: orders_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.orders_order_id_seq', 1, false);
 
 
 --
--- Name: user_decal_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: user_decal_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.user_decal_list_id_seq', 1, false);
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.users_id_seq', 7, true);
 
 
 --
--- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: address address_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.address
@@ -466,7 +434,7 @@ ALTER TABLE ONLY public.address
 
 
 --
--- Name: cart_session cart_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: cart_session cart_session_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cart_session
@@ -474,7 +442,7 @@ ALTER TABLE ONLY public.cart_session
 
 
 --
--- Name: stickers decal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: stickers decal_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.stickers
@@ -482,7 +450,7 @@ ALTER TABLE ONLY public.stickers
 
 
 --
--- Name: federated_credentials federated_credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: federated_credentials federated_credentials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.federated_credentials
@@ -490,7 +458,7 @@ ALTER TABLE ONLY public.federated_credentials
 
 
 --
--- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders
@@ -498,7 +466,7 @@ ALTER TABLE ONLY public.orders
 
 
 --
--- Name: user_sessions session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_sessions session_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_sessions
@@ -506,7 +474,7 @@ ALTER TABLE ONLY public.user_sessions
 
 
 --
--- Name: user_sticker_list user_decal_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_sticker_list user_decal_list_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_sticker_list
@@ -514,7 +482,7 @@ ALTER TABLE ONLY public.user_sticker_list
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -522,7 +490,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users users_username_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -530,14 +498,14 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: IDX_session_expire; Type: INDEX; Schema: public; Owner: postgres
+-- Name: IDX_session_expire; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX "IDX_session_expire" ON public.user_sessions USING btree (expire);
 
 
 --
--- Name: cart_stickers cart_stickers_cart_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: cart_stickers cart_stickers_cart_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cart_stickers
@@ -545,7 +513,7 @@ ALTER TABLE ONLY public.cart_stickers
 
 
 --
--- Name: cart_stickers cart_stickers_sticker_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: cart_stickers cart_stickers_sticker_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.cart_stickers
@@ -553,7 +521,7 @@ ALTER TABLE ONLY public.cart_stickers
 
 
 --
--- Name: stickers_per_lists decals_per_lists_decal_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: stickers_per_lists decals_per_lists_decal_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.stickers_per_lists
@@ -561,7 +529,7 @@ ALTER TABLE ONLY public.stickers_per_lists
 
 
 --
--- Name: stickers_per_lists decals_per_lists_list_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: stickers_per_lists decals_per_lists_list_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.stickers_per_lists
@@ -569,7 +537,7 @@ ALTER TABLE ONLY public.stickers_per_lists
 
 
 --
--- Name: federated_credentials federated_credentials_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: federated_credentials federated_credentials_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.federated_credentials
@@ -577,7 +545,7 @@ ALTER TABLE ONLY public.federated_credentials
 
 
 --
--- Name: orders orders_address_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: orders orders_address_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders
@@ -585,7 +553,7 @@ ALTER TABLE ONLY public.orders
 
 
 --
--- Name: orders_stickers orders_decals_decal_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: orders_stickers orders_decals_decal_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders_stickers
@@ -593,7 +561,7 @@ ALTER TABLE ONLY public.orders_stickers
 
 
 --
--- Name: orders_stickers orders_decals_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: orders_stickers orders_decals_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.orders_stickers
@@ -601,7 +569,7 @@ ALTER TABLE ONLY public.orders_stickers
 
 
 --
--- Name: user_sticker_list user_decal_list_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: user_sticker_list user_decal_list_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.user_sticker_list
@@ -609,115 +577,115 @@ ALTER TABLE ONLY public.user_sticker_list
 
 
 --
--- Name: TABLE address; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE address; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.address TO devdoodle;
 
 
 --
--- Name: SEQUENCE address_address_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE address_address_id_seq; Type: ACL; Schema: public; Owner: -
 --
 
-GRANT USAGE ON SEQUENCE public.address_address_id_seq TO devdoodle;
+GRANT ALL ON SEQUENCE public.address_address_id_seq TO devdoodle;
 
 
 --
--- Name: TABLE cart_session; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE cart_session; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.cart_session TO devdoodle;
 
 
 --
--- Name: TABLE cart_stickers; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE cart_stickers; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.cart_stickers TO devdoodle;
 
 
 --
--- Name: TABLE stickers; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE stickers; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.stickers TO devdoodle;
 
 
 --
--- Name: SEQUENCE decal_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE decal_id_seq; Type: ACL; Schema: public; Owner: -
 --
 
-GRANT USAGE ON SEQUENCE public.decal_id_seq TO devdoodle;
+GRANT ALL ON SEQUENCE public.decal_id_seq TO devdoodle;
 
 
 --
--- Name: TABLE federated_credentials; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE federated_credentials; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.federated_credentials TO devdoodle;
 
 
 --
--- Name: TABLE orders; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE orders; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.orders TO devdoodle;
 
 
 --
--- Name: SEQUENCE orders_order_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE orders_order_id_seq; Type: ACL; Schema: public; Owner: -
 --
 
-GRANT USAGE ON SEQUENCE public.orders_order_id_seq TO devdoodle;
+GRANT ALL ON SEQUENCE public.orders_order_id_seq TO devdoodle;
 
 
 --
--- Name: TABLE orders_stickers; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE orders_stickers; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.orders_stickers TO devdoodle;
 
 
 --
--- Name: TABLE stickers_per_lists; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE stickers_per_lists; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.stickers_per_lists TO devdoodle;
 
 
 --
--- Name: TABLE user_sticker_list; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE user_sticker_list; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.user_sticker_list TO devdoodle;
 
 
 --
--- Name: SEQUENCE user_decal_list_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE user_decal_list_id_seq; Type: ACL; Schema: public; Owner: -
 --
 
-GRANT USAGE ON SEQUENCE public.user_decal_list_id_seq TO devdoodle;
+GRANT ALL ON SEQUENCE public.user_decal_list_id_seq TO devdoodle;
 
 
 --
--- Name: TABLE user_sessions; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE user_sessions; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.user_sessions TO devdoodle;
 
 
 --
--- Name: TABLE users; Type: ACL; Schema: public; Owner: postgres
+-- Name: TABLE users; Type: ACL; Schema: public; Owner: -
 --
 
 GRANT ALL ON TABLE public.users TO devdoodle;
 
 
 --
--- Name: SEQUENCE users_id_seq; Type: ACL; Schema: public; Owner: postgres
+-- Name: SEQUENCE users_id_seq; Type: ACL; Schema: public; Owner: -
 --
 
-GRANT USAGE ON SEQUENCE public.users_id_seq TO devdoodle;
+GRANT ALL ON SEQUENCE public.users_id_seq TO devdoodle;
 
 
 --
