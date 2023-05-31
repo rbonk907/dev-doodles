@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
@@ -14,11 +16,17 @@ const shopRouter = require('./routes/shop');
 const userRouter = require('./routes/user');
 
 const app = express();
-const port = 3000;
+const port = 3001; // leave 3000 open for the frontend
 
 // temporary view engine for testing user login flow
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.use(cors({ 
+    origin: 'http://localhost:3000', 
+    credentials: true,
+    methods: "GET,POST,PUT,DELETE,OPTIONS",
+}));
 
 app.use(bodyParser.json());
 app.use(
@@ -26,23 +34,29 @@ app.use(
         extended: true,
     })
 );
+// app.use(cookieParser(process.env.COOKIE_SECRET));
 
+/**
+ * Upon any server request, where a cookie containing the session ID is
+ * also passed in, express-session verifies the signed cookie with the
+ * stored secret. Assuming all is well, the session is re-populated
+ * with the information stored in the database.
+ */
 app.use(session({
     store: new pgSession({
         pool: db.pool,
         tableName: 'user_sessions'
     }),
     secret: process.env.COOKIE_SECRET,
+    name: 'devDoodle',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false } // 30 days
 }));
 /** 
- * Upon any server request, passport checks if a user is stored in the
- * in the session object. This calls the `deserializeUser` function 
- * which will return a user object if present. If so, a login session
- * is re-established by populating `req.user` with the current user 
- * information
+ * Passport calls the `deserializeUser` function which will return
+ * a user object if present and a login session is re-established
+ * by populating `req.user` with the current user information
  */
 app.use(passport.authenticate('session'));
 

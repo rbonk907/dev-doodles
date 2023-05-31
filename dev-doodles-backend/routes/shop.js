@@ -8,6 +8,13 @@ const shop = express.Router();
 // ================ Cart Routes =====================================
 // post request to create a cart
 shop.post('/cart', (request, response) => {
+    console.log(request.body);
+    const { total, qty, stickerId } = request.body;
+    
+    console.log(`total: ${typeof total}`);
+    console.log(`qty: ${typeof qty}`);
+    console.log(`stickerId: ${typeof stickerId}`);
+
     if (!request.session.cart) {
         const cartId = shortUUID.generate();
         const prevSession = request.session;
@@ -17,17 +24,26 @@ shop.post('/cart', (request, response) => {
 
             db.query('INSERT INTO cart_session (cart_id, total) VALUES ($1, $2)', [
                 cartId,
-                0.00
+                total,
             ], (error, results) => {
                 if (error) { throw error; }
 
-                request.session.cart = { id: cartId, total: 0.00 };
-                // merge previous session to maintain log-in info
-                merge(request.session, prevSession);
+                db.query('INSERT INTO cart_stickers (qty, sticker_id, cart_id) VALUES ($1, $2, $3)', [
+                    qty,
+                    stickerId,
+                    cartId,
+                ], (error, results) => {
+                    if (error) { throw error; }
 
-                request.session.save(function(err) {
-                    if (err) { throw err; }
-                    response.status(200).send(`Cart created with ID: ${cartId}`);
+                    request.session.cart = { id: cartId };
+                    // merge previous session to maintain log-in info
+                    merge(request.session, prevSession);
+
+                    request.session.save(function(err) {
+                        if (err) { throw err; }
+                        console.log(`Cart created with ID: ${cartId}`);
+                        response.status(200).send();
+                    });
                 });
             });
         }); 
@@ -37,17 +53,62 @@ shop.post('/cart', (request, response) => {
     }
 });
 
+shop.post('/cart/item', (request, response) => {
+    if (!request.session.cart) {
+        return response.status(401).send();
+    }
+    const cartId = request.session.cart.id;
+    const {price, qty, stickerId } = request.body;
+    
+
+    db.query('SELECT qty FROM cart_stickers WHERE cart_id = $1 AND sticker_id = $2', [
+        cartId,
+        stickerId,
+    ], (error, results) => {
+        if (error) { throw error; }
+        
+        if (!results.rows.length) {
+            db.query('INSERT INTO cart_stickers (qty, sticker_id, cart_id) VALUES ($1, $2, $3)', [
+                qty,
+                stickerId,
+                cartId
+            ], (error, results) => {
+                if (error) { throw error; }
+            });
+        } else {
+            // row already exists in cart_stickers, so update qty
+            db.query('UPDATE cart_stickers SET qty = qty + $1 WHERE sticker_id = $2 AND cart_id = $3', [
+                qty,
+                stickerId,
+                cartId
+            ], (error, results) => {
+                if (error) { throw error; }
+            });
+        }
+    });
+
+    db.query('UPDATE cart_session SET total = total + $1 WHERE cart_id = $2', [
+        (price * qty),
+        cartId
+    ], (error, results) => {
+        if (error) { throw error; }
+
+        return response.status(200).send();
+    })
+})
+
 shop.get('/cart', (request, response) => {
     if (!request.session.cart) {
         console.log(request.session);
-        return response.status(200).send('Cart is empty...');
+        return response.status(204); // empty cart so return no content status
     }
     const queryString = 'SELECT cart.qty, stickers.id AS sticker_id, stickers.title, stickers.price ' +
                         'FROM cart_stickers AS cart INNER JOIN stickers ' +
                         'ON cart.sticker_id = stickers.id ' +
-                        'WHERE cart.cart_id = $1';
+                        'WHERE cart.cart_id = $1 ' +
+                        'ORDER BY sticker_id ASC';
     const cartId = request.session.cart.id;
-    const cart = { id: cartId, total: request.session.cart.total };
+    const cart = { id: cartId };
 
     db.query(queryString, [ cartId ], (error, results) => {
         if (error) { throw error; }
@@ -81,29 +142,55 @@ shop.delete('/cart', (request, response) => {
 
 // put request to update items in shopping cart
 shop.put('/cart', (request, response) => {
-    const { cartId, total, item } = request.body;
-    // either update quantity or delete row from table cart_stickers
-    if (item.qty) {
-        db.query('UPDATE cart_stickers SET qty = $1 WHERE sticker_id = $2 AND cart_id = $3', [
-            item.qty,
-            item.sticker_id,
-            cartId
-        ], (error, results) => {
-            if (error) { throw error; }
-        });
-    } else {
-        db.query('DELETE FROM cart_stickers WHERE sticker_id = $1 AND cart_id = $2', [
-            item.sticker_id,
-            cartId
-        ]);
+    if (!request.session.cart) {
+        // user should not be allowed to edit a cart if one does not exist in the session
+        return response.status(401).send();
     }
-    // then update cart total in cart_session
-    db.query('UPDATE cart_session SET total = $1 WHERE cart_id = $2', [
-        total,
+    
+    const { price, qty, stickerId } = request.body;
+    const cartId = request.session.cart.id;
+
+    // update quantity from table cart_stickers
+    db.query('UPDATE cart_stickers SET qty = qty + $1 WHERE sticker_id = $2 AND cart_id = $3', [
+        qty,
+        stickerId,
         cartId
     ], (error, results) => {
         if (error) { throw error; }
-        return response.status(200).send();
+        // then update cart total in cart_session
+        db.query('UPDATE cart_session SET total = total + $1 WHERE cart_id = $2', [
+            (qty * price),
+            cartId
+        ], (error, results) => {
+            if (error) { throw error; }
+            return response.status(200).send();
+        });
+    });
+    
+});
+
+shop.delete('/cart/item', (request, response) => {
+    if (!request.session.cart) {
+        return response.status(401).send();
+    }
+
+    const { price, stickerId } = request.body;
+    const cartId = request.session.cart.id;
+
+    // delete row from table cart_stickers
+    db.query('DELETE from cart_stickers WHERE sticker_id = $1 AND cart_id = $2', [
+        stickerId,
+        cartId
+    ], (error, results) => {
+        if (error) { throw error; }
+        // then update cart total in cart_session
+        db.query('UPDATE cart_session SET total = total - $1 WHERE cart_id = $2', [
+            price,
+            cartId
+        ], (error, results) => {
+            if (error) { throw error; }
+            return response.status(200).send();
+        });
     });
 });
 

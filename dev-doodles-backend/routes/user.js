@@ -4,11 +4,17 @@ const db = require('../db');
 const user = express.Router();
 
 user.get('/', (request, response) => {
-    db.query('SELECT * FROM users', (error, results) => {
-        if (error) { throw error; }
+    // console.log(request);
+    if (!request.user) {
+        return response.status(401).send();
+    }
+    
+    // db.query('SELECT * FROM users', (error, results) => {
+    //     if (error) { throw error; }
 
-        response.status(200).json(results.rows);
-    });
+    //     response.status(200).json(results.rows);
+    // });
+    return response.status(200).json(request.user);
 });
 
 user.get('/:username', (request, response) => {
