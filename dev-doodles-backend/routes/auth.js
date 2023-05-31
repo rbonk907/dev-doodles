@@ -6,7 +6,7 @@ const GoogleStrategy = require('passport-google-oauth20');
 const crypto = require('crypto');
 const db = require('../db');
 
-const CLIENT_URL = "http://localhost:3000";
+const CLIENT_URL = "https://frontend-dev-doodles.onrender.com";
 
 /* create new strategy for handling username and password authentication.
  * Query the database for a provided username and if it exists, determine if the
