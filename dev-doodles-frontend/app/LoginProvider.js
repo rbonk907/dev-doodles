@@ -10,7 +10,7 @@ export default function LoginProvider({ children }) {
     const [isAuth, setAuth] = useState((cookies.get("isAuth") === "true") || false);
     
     useEffect(() => {
-        cookies.set("isAuth", isAuth.toString(), { path: '/' });
+        cookies.set("isAuth", isAuth.toString(), { path: '/', secure: true, sameSite: 'strict' });
     }, [isAuth]);
 
     return (
