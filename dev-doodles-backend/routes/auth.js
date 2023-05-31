@@ -115,7 +115,11 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {
 }), setAuthCookie);
 
 function setAuthCookie(req, res) {
-    res.cookie('isAuth', true).redirect(CLIENT_URL);
+    const options = {
+        sameSite: 'strict',
+        secure: true
+    }
+    res.cookie('isAuth', true, options).redirect(CLIENT_URL);
 }
 
 router.post('/logout', function(req, res, next) {
