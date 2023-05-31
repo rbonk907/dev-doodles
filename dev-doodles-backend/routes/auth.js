@@ -116,7 +116,7 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {
 
 function setAuthCookie(req, res) {
     const options = {
-        sameSite: 'strict',
+        sameSite: 'lax',
         secure: true,
         domain: 'https://frontend-dev-doodles.onrender.com',
     }
