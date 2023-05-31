@@ -1,4 +1,4 @@
-const API_ENDPOINT = 'http://localhost:3001';
+const API_ENDPOINT = 'https://backend-dev-doodles.onrender.com';
 
 // async function responseHandler(res, status) {
 

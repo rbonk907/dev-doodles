@@ -15,7 +15,7 @@ export default function LoginForm() {
     async function handleSubmit(event) {
         event.preventDefault();
         
-        const response = await fetch(`http://localhost:3001/login/password`, {
+        const response = await fetch(`https://backend-dev-doodles.onrender.com/login/password`, {
             method: "POST",
             credentials: "include", // on successful login, express will pass a cookie containing the sessionID
             body: JSON.stringify({
@@ -34,7 +34,7 @@ export default function LoginForm() {
     }
 
     function handleGoogleLogin() {
-        window.open("http://localhost:3001/login/federated/google", "_self");
+        window.open("https://backend-dev-doodles.onrender.com/login/federated/google", "_self");
     }
 
     return (

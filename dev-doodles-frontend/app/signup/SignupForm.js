@@ -15,7 +15,7 @@ export default function SignupForm() {
     async function handleSubmit(event) {
         event.preventDefault();
         console.log("handling submit...");
-        const response = await fetch(`http://localhost:3001/signup`, {
+        const response = await fetch(`https://backend-dev-doodles.onrender.com/signup`, {
             method: "POST",
             credentials: "include", // on successful login, express will pass a cookie containing the sessionID
             body: JSON.stringify({
@@ -34,7 +34,7 @@ export default function SignupForm() {
     }
 
     function handleGoogleLogin() {
-        window.open("http://localhost:3001/login/federated/google", "_self");
+        window.open("https://backend-dev-doodles.onrender.com/login/federated/google", "_self");
     }
     
     return (
