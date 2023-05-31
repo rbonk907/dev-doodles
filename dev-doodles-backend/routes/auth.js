@@ -119,26 +119,28 @@ function setAuthCookie(req, res) {
 }
 
 router.post('/logout', function(req, res, next) {
-    const cartId = req.session.cart.id;
+    const cartId = req.session.cart ? req.session.cart.id : "";
     req.logout(function(err) {
         if (err) { return next(err); }
-
-        
 
         req.session.destroy(function(err) {
             if (err) { return next(err); }
 
-            db.query('DELETE from cart_stickers WHERE cart_id = $1', [
-                cartId,
-            ], (error, results) => {
-                if (error) { throw error; }
-                db.query('DELETE from cart_session WHERE cart_id = $1', [
+            if (cartId) {
+                db.query('DELETE from cart_stickers WHERE cart_id = $1', [
                     cartId,
                 ], (error, results) => {
-                    // return res.clearCookie('devDoodle').redirect('/');
-                    return res.redirect('/');
+                    if (error) { throw error; }
+                    db.query('DELETE from cart_session WHERE cart_id = $1', [
+                        cartId,
+                    ], (error, results) => {
+                        return res.redirect('/');
+                    });
                 });
-            });
+            } else {
+                return res.redirect('/');
+            }
+            
         });
     });
 });
@@ -167,7 +169,8 @@ router.post('/signup', function(req, res, next) {
                 if (err) { return next(err); }
                 const user = {
                     id: pgRes.rows[0].id,
-                    username: req.body.username
+                    username: req.body.username,
+                    name: req.body.name ? req.body.name : req.body.username
                 };
                 req.login(user, function(err) {
                     if (err) { return next(err); }
