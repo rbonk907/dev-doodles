@@ -51,7 +51,7 @@ app.use(session({
     name: 'devDoodle',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false } // 30 days
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true } // 30 days
 }));
 /** 
  * Passport calls the `deserializeUser` function which will return
