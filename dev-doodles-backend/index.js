@@ -52,7 +52,7 @@ app.use(session({
     name: 'devDoodle',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true, domain: 'https://frontend-dev-doodles.onrender.com' } // 30 days
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none', secure: true, domain: 'frontend-dev-doodles.onrender.com' } // 30 days
 }));
 /** 
  * Passport calls the `deserializeUser` function which will return
