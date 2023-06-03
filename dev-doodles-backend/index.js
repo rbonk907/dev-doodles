@@ -42,7 +42,7 @@ app.use(
  * stored secret. Assuming all is well, the session is re-populated
  * with the information stored in the database.
  */
-// app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 app.use(session({
     store: new pgSession({
         pool: db.pool,
@@ -51,7 +51,7 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     name: 'devDoodle',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: false, sameSite: 'none', secure: true, domain: 'onrender.com' } // 30 days
 }));
 /** 
