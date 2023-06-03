@@ -113,6 +113,7 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {
     /*successReturnToOrRedirect: CLIENT_URL,*/
     failureRedirect: `${CLIENT_URL}/login`,
     failureMessage: true,
+    keepSessionInfo: true,
 }), setAuthCookie);
 
 function setAuthCookie(req, res) {
