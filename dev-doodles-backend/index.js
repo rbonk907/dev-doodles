@@ -42,7 +42,7 @@ app.use(
  * stored secret. Assuming all is well, the session is re-populated
  * with the information stored in the database.
  */
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 app.use(session({
     store: new pgSession({
         pool: db.pool,
